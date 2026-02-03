@@ -22,7 +22,7 @@ steps:
     entrypoint: sh
     args:
       - "-c"
-      - terraform plan -no-color
+      - terraform plan -no-color --detailed-exitcode 
     volumes:
       - name: "ssh"
         path: /root/.ssh
