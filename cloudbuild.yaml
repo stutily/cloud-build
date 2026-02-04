@@ -17,14 +17,5 @@ steps:
     volumes:
       - name: "ssh"
         path: /root/.ssh
-  - id: "plan"
-    name: hashicorp/terraform:1.12.2
-    entrypoint: sh
-    args:
-      - "-c"
-      - terraform plan -no-color
-    volumes:
-      - name: "ssh"
-        path: /root/.ssh
 timeout: 600s
 logsBucket: gs://sp-archived-drive
