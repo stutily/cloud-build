@@ -24,23 +24,13 @@ steps:
     entrypoint: sh
     args:
       - -c
-      - "if [[ \"$_DRIFT_DETECT\" == \"true\" ]]; then\n    echo \"Running drift detection\"\n    terraform plan -no-color --detailed-exitcode \n  else\n    terraform plan -no-color\n  fi\n"
+      - |
+          if [[ "$_DRIFT_DETECT" == "true" ]]; then
+            echo "Running drift detection"    
+            terraform plan -no-color --detailed-exitcode
+          else
+            terraform plan -no-color
+          fi
     volumes:
       - name: "ssh"
         path: /root/.ssh
-timeout: 600s # default 10 minutes
-logsBucket: gs://sp-archived-drive
-substitutions:
-  _RUN_TESTS: "true"
-steps:
-  - name: gcr.io/cloud-builders/gcloud
-    entrypoint: bash
-    args:
-      - -c
-      - |
-        if [[ "$_RUN_TESTS" == "true" ]]; then
-          echo "Running tests..."
-          ./run-tests.sh
-        else
-          echo "Skipping tests"
-        fi
