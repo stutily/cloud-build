@@ -4,13 +4,11 @@ jobs:
       - image: google/cloud-sdk:slim
     steps:
       - checkout
-
       - run:
           name: Verify Identity
           command: |
             echo "Using GCP identity:"
             gcloud auth list
-
       - run:
           name: Trigger Cloud Build Drift Job
           command: |
@@ -19,7 +17,6 @@ jobs:
               --format='value(metadata.build.id)')
             echo $BUILD_ID > build.txt
             echo "Triggered build: $BUILD_ID"
-
       - run:
           name: Poll for Completion
           command: |
@@ -44,15 +41,12 @@ jobs:
                   ;;
               esac
             done
-
       - run:
           name: Stream Logs
           command: |
             BUILD_ID=$(cat build.txt)
             gcloud builds log "$BUILD_ID" --region=europe-west1
-
 workflows:
   drift:
     jobs:
       - drift-detection
-
