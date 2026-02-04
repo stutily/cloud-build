@@ -34,3 +34,5 @@ steps:
     volumes:
       - name: "ssh"
         path: /root/.ssh
+timeout: 600s # default 10 minutes
+logsBucket: gs://sp-archived-drive
