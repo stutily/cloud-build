@@ -17,5 +17,14 @@ steps:
     volumes:
       - name: "ssh"
         path: /root/.ssh
-timeout: 600s
+  - id: "plan"
+    name: hashicorp/terraform:1.12.2
+    entrypoint: sh
+    args:
+      - "-c"
+      - terraform plan -no-color --detailed-exitcode 
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
+timeout: 600s # default 10 minutes
 logsBucket: gs://sp-archived-drive
