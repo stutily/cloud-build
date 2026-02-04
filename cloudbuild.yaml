@@ -25,14 +25,14 @@ steps:
     args:
       - -c
       - |
-          if [[ "$_DRIFT_DETECT" == "true" ]]; then
-            echo "Running drift detection"    
-            terraform plan -no-color --detailed-exitcode
-          else
-            terraform plan -no-color
-          fi
+        if [[ "$_DRIFT_DETECT" == "true" ]]; then
+          echo "Running drift detection"
+          terraform plan -no-color --detailed-exitcode
+        else
+          terraform plan -no-color
+        fi
     volumes:
       - name: "ssh"
         path: /root/.ssh
-timeout: 600s # default 10 minutes
+timeout: 600s
 logsBucket: gs://sp-archived-drive
